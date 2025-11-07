@@ -1,0 +1,91 @@
+<!-- filepath: /c:/Users/Asus/Recommender System/project-folder/templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistem Rekomendasi Prodi</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <img src="{{ url_for('static', filename='images/usd-logo.png') }}" alt="Logo USD" class="logo" />
+        <h1>SISTEM REKOMENDASI PEMILIHAN PRODI</h1>
+        <h2>UNIVERSITAS SANATA DHARMA</h2>
+      </div>
+      <div class="form-container">
+        <form method="POST">
+          <label for="nama">Nama Lengkap:</label>
+          <input type="text" name="nama" id="nama" placeholder="Masukkan nama lengkap" required />
+
+          <label for="asal_sekolah">Asal Sekolah:</label>
+          <input type="text" name="asal_sekolah" id="asal_sekolah" placeholder="Masukkan asal sekolah" required />
+
+          <label for="provinsi_calon">Provinsi Asal Calon Mahasiswa:</label>
+          <select name="provinsi_calon">
+            {% for provinsi in provinsi_options %}
+            <option value="{{ provinsi }}">{{ provinsi }}</option>
+            {% endfor %}
+          </select>
+
+          <label for="provinsi_sekolah">Provinsi Asal Sekolah Calon Mahasiswa:</label>
+          <select name="provinsi_sekolah">
+            {% for provinsi in provinsi_options %}
+            <option value="{{ provinsi }}">{{ provinsi }}</option>
+            {% endfor %}
+          </select>
+
+          <label for="tipe_sekolah">Tipe Sekolah:</label>
+          <select name="tipe_sekolah">
+            {% for tipe in tipe_sekolah_options %}
+            <option value="{{ tipe }}">{{ tipe }}</option>
+            {% endfor %}
+          </select>
+
+          <label for="nilai">Nilai Tes/Rapor:</label>
+          <input type="text" name="nilai" id="nilai" placeholder="Masukkan nilai tes/rapor" required />
+
+          <label for="pilihan1">Pilihan 1:</label>
+          <select name="pilihan1" id="pilihan1">
+            {% for prodi in prodi_options %}
+            <option value="{{ prodi }}">{{ prodi }}</option>
+            {% endfor %}
+          </select>
+
+          <label for="pilihan2">Pilihan 2:</label>
+          <select name="pilihan2" id="pilihan2">
+            {% for prodi in prodi_options %}
+            <option value="{{ prodi }}">{{ prodi }}</option>
+            {% endfor %}
+          </select>
+
+          <label for="pilihan3">Pilihan 3:</label>
+          <select name="pilihan3" id="pilihan3">
+            {% for prodi in prodi_options %}
+            <option value="{{ prodi }}">{{ prodi }}</option>
+            {% endfor %}
+          </select>
+
+          <button type="submit" class="submit-btn">Cek Rekomendasi</button>
+        </form>
+      </div>
+      <div class="output-container">
+        <label>Output:</label>
+        <div class="output-content">
+          {% if prediction and recommendation %}
+          <p><strong>Prediksi Penerimaan:</strong></p>
+          <ul>
+            {% for prodi, status in prediction.items() %}
+            <li class="{% if status == 'Diterima' %}accepted{% else %}rejected{% endif %}">{{ prodi }}: {{ status }}</li>
+            {% endfor %}
+          </ul>
+          <p><strong>Rekomendasi Program Studi:</strong> {{ recommendation }}</p>
+          {% else %}
+          <p>Silakan masukkan data dan klik "Cek Rekomendasi" untuk melihat hasil.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
