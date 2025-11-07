@@ -1,4 +1,4 @@
-# Recommender System (Universitas Sanata Dharma)
+# Recommender System Pemilihan Prodi Bagi Maba (Universitas Sanata Dharma)
 
 Singkat:
 1. Buat virtual environment:
